@@ -17,9 +17,10 @@ using Unity.XR.PXR;
 public class PXR_Hand : MonoBehaviour
 {
     public HandType handType;
+    public Transform Basemesh;
     [HideInInspector]
     public List<Transform> handJoints = new List<Transform>(new Transform[(int)HandJoint.JointMax]);
-
+    
     public bool Computed { get; private set; }
     public Posef RayPose { get; private set; }
     public bool RayValid { get; private set; }
@@ -33,16 +34,29 @@ public class PXR_Hand : MonoBehaviour
     [SerializeField]
     private GameObject defaultRay;
     private SkinnedMeshRenderer[] touchRenders;
-
+    private bool isaAdaptiveScales = false;
+    PXR_VstModelPosCheck mOffsetPos=null;
+    private void Awake()
+    {
+        mOffsetPos= GetComponent<PXR_VstModelPosCheck>();
+    }
     private void Start()
     {
+        isaAdaptiveScales = PXR_ProjectSetting.GetProjectConfig().adaptiveHand;
+       
         if (defaultRay != null)
         {
             touchRenders = defaultRay.GetComponentsInChildren<SkinnedMeshRenderer>();
         }
     }
+   
 
-    private void Update()
+    protected void OnEnable() => Application.onBeforeRender += OnBeforeRender;
+
+
+    protected void OnDisable() => Application.onBeforeRender -= OnBeforeRender;
+
+    private void OnBeforeRender()
     {
         UpdateHandJoints();
         UpdateAimState();
@@ -55,7 +69,13 @@ public class PXR_Hand : MonoBehaviour
         {
             if (handJointLocations.isActive == 0) return;
 
-            transform.localScale = Vector3.one*handJointLocations.handScale;
+            if (isaAdaptiveScales)
+            {
+                float scale = 0;
+                PXR_HandTracking.GetHandScale(handType,ref scale);
+                Basemesh.localScale = Vector3.one*scale;
+            
+            }
 
             for (int i = 0; i < handJoints.Count; ++i)
             {
@@ -63,12 +83,8 @@ public class PXR_Hand : MonoBehaviour
 
                 if (i == (int)HandJoint.JointWrist)
                 {
-#if UNITY_2021_3_OR_NEWER
-                    handJoints[i].SetLocalPositionAndRotation(handJointLocations.jointLocations[i].pose.Position.ToVector3(), handJointLocations.jointLocations[i].pose.Orientation.ToQuat());
-#else
                     handJoints[i].localPosition = handJointLocations.jointLocations[i].pose.Position.ToVector3();
                     handJoints[i].localRotation = handJointLocations.jointLocations[i].pose.Orientation.ToQuat();
-#endif
                 }
                 else
                 {
@@ -90,8 +106,15 @@ public class PXR_Hand : MonoBehaviour
                     
                     var inverseParentRotation = Quaternion.Inverse(parentPose.rotation);
                     handJoints[i].localRotation = inverseParentRotation * handJointLocations.jointLocations[i].pose.Orientation.ToQuat();
+                   
                 }
             }
+      
+            if (mOffsetPos)
+            {
+                Basemesh.localPosition = handJointLocations.jointLocations[(int)Unity.XR.PXR.HandJoint.JointWrist].pose.Position.ToVector3()+ mOffsetPos.GetHandPosOffset();
+            }
+           
         }
     }
 
@@ -115,12 +138,8 @@ public class PXR_Hand : MonoBehaviour
         if (RayValid)
         {
             rayPose.gameObject.SetActive(true);
-#if UNITY_2021_3_OR_NEWER
-            rayPose.SetLocalPositionAndRotation(RayPose.Position.ToVector3(), RayPose.Orientation.ToQuat());
-#else
             rayPose.localPosition = RayPose.Position.ToVector3();
             rayPose.localRotation = RayPose.Orientation.ToQuat();
-#endif
 
             if (defaultRay != null)
             {

@@ -100,9 +100,7 @@ namespace Unity.XR.PXR
         /// Gets the position of the center of the eyes in the Unity camera coordinate system (unit: meter).
         /// @note Only supported by PICO Neo3 Pro Eye, PICO 4 Pro, and PICO 4 Enterprise.
         /// </summary>
-        /// <param name="point">Returns a vector3 value which is divided by 1000.
-        /// To get the original value, multiply the returned value by 1000. Unit: millimeter.
-        /// </param>
+        /// <param name="point">Returns a vector3 value which is divided by 1000. To get the original value, multiply the returned value by 1000. Unit: millimeter.</param>
         /// <returns>
         /// * `true`: success
         /// * `false`: failure
@@ -130,9 +128,7 @@ namespace Unity.XR.PXR
         /// Gets the direction of binocular combined gaze in the Unity camera coordinate system.
         /// @note Only supported by PICO Neo3 Pro Eye, PICO 4 Pro, and PICO 4 Enterprise.
         /// </summary>
-        /// <param name="vector">Returns a vector3 value which is divided by 1000.
-        /// To get the original value, multiply the returned value by 1000. Unit: millimeter.
-        /// </param>
+        /// <param name="vector">Returns a vector3 value which is divided by 1000. To get the original value, multiply the returned value by 1000. Unit: millimeter.</param>
         /// <returns>
         /// * `true`: success
         /// * `false`: failure
@@ -216,19 +212,19 @@ namespace Unity.XR.PXR
         /// Gets whether the data of the current left eye is available. 
         /// @note Only supported by PICO Neo3 Pro Eye, PICO 4 Pro, and PICO 4 Enterprise.
         /// </summary>
-        /// <param name="status">An int value returned by the result. Below are the EyePoseStatus enumerations:
-        /// * `GazePointValid`                     = (1 << 0),
-        /// * `GazeVectorValid`                    = (1 << 1),
-        /// * `EyeOpennessValid`                   = (1 << 2),
-        /// * `EyePupilDilationValid`              = (1 << 3),
-        /// * `EyePositionGuideValid`              = (1 << 4),
-        /// * `EyePupilPositionValid`              = (1 << 5),
-        /// * `EyeConvergenceDistanceValid`        = (1 << 6),
-        /// * `EyeGazePointValid`                  = (1 << 7),
-        /// * `EyeGazeVectorValid`                 = (1 << 8),
-        /// * `PupilDistanceValid`                 = (1 << 9),
-        /// * `ConvergenceDistanceValid`           = (1 << 10),
-        /// * `PupilDiameterValid`                 = (1 << 11),
+        /// <param name="status">An int value returned by the result. Below are the `EyePoseStatus` enumerations:
+        /// - GazePointValid = (1 << 0),
+        /// - GazeVectorValid = (1 << 1),
+        /// - EyeOpennessValid = (1 << 2),
+        /// - EyePupilDilationValid = (1 << 3),
+        /// - EyePositionGuideValid = (1 << 4),
+        /// - EyePupilPositionValid = (1 << 5),
+        /// - EyeConvergenceDistanceValid = (1 << 6),
+        /// - EyeGazePointValid = (1 << 7),
+        /// - EyeGazeVectorValid = (1 << 8),
+        /// - PupilDistanceValid = (1 << 9),
+        /// - ConvergenceDistanceValid = (1 << 10),
+        /// - PupilDiameterValid = (1 << 11),
         /// </param>
         /// <returns>
         /// * `true`: success
@@ -255,9 +251,19 @@ namespace Unity.XR.PXR
         /// Gets whether the data of the current right eye is available.
         /// @note Only supported by PICO Neo3 Pro Eye, PICO 4 Pro, and PICO 4 Enterprise.
         /// </summary>
-        /// <param name="status">An int value returned by the result: 
-        /// * `0`: not available
-        /// * `1`: available
+        /// <param name="status">An int value returned by the result. Below are the `EyePoseStatus` enumerations:
+        /// - GazePointValid = (1 << 0),
+        /// - GazeVectorValid = (1 << 1),
+        /// - EyeOpennessValid = (1 << 2),
+        /// - EyePupilDilationValid = (1 << 3),
+        /// - EyePositionGuideValid = (1 << 4),
+        /// - EyePupilPositionValid = (1 << 5),
+        /// - EyeConvergenceDistanceValid = (1 << 6),
+        /// - EyeGazePointValid = (1 << 7),
+        /// - EyeGazeVectorValid = (1 << 8),
+        /// - PupilDistanceValid = (1 << 9),
+        /// - ConvergenceDistanceValid = (1 << 10),
+        /// - PupilDiameterValid = (1 << 11),
         /// </param>
         /// <returns>
         /// * `true`: success
@@ -310,7 +316,7 @@ namespace Unity.XR.PXR
         }
 
         /// <summary>
-        /// Gets the coordinate of the left eye's inner eye corner in the image coordinate system, where the top left corner is (0,0) and the bottom right corner is (1,1).
+        /// Gets the position of the left eye in a coordinate system. The upper-right point of the sensor is taken as the origin (0, 0) and the lower-left point is taken as (1, 1). 
         /// @note Only supported by PICO Neo3 Pro Eye, PICO 4 Pro, and PICO 4 Enterprise.
         /// </summary>
         /// <param name="position">A vector3 value returned by the result.</param>
@@ -336,7 +342,7 @@ namespace Unity.XR.PXR
         }
 
         /// <summary>
-        /// Gets the coordinate of the right eye's inner eye corner in the image coordinate system, where the top left corner is (0,0) and the bottom right corner is (1,1).
+        /// Gets the position of the right eye in a coordinate system. The upper-right point of the sensor is taken as the origin (0, 0) and the lower-left point is taken as (1, 1). 
         /// @note Only supported by PICO Neo3 Pro Eye, PICO 4 Pro, and PICO 4 Enterprise.
         /// </summary>
         /// <param name="position">A vector3 value returned by the result.</param>
@@ -362,7 +368,7 @@ namespace Unity.XR.PXR
         }
 
         /// <summary>
-        /// Gets the direction of binocular combined gaze in the View coordinate system (i.e., OpenXR right-handed coordinate system).
+        /// Gets the foveated gaze direction (i.e., the central point of fixed foveated rendering). 
         /// @note Only supported by PICO Neo3 Pro Eye, PICO 4 Pro, and PICO 4 Enterprise.
         /// </summary>
         /// <param name="direction">A vector3 value returned by the result.</param>

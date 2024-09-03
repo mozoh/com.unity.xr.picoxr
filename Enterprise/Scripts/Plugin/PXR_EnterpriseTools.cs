@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Unity.XR.PXR
+namespace Unity.XR.PICO.TOBSupport
 {
     public class PXR_EnterpriseTools : MonoBehaviour
     {

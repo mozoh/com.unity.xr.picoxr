@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Unity.XR.PXR
+namespace Unity.XR.PICO.TOBSupport
 {
     public class StringCallback : AndroidJavaProxy
     {

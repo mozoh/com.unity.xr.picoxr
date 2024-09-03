@@ -2,10 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using LitJson;
-using Unity.XR.PXR;
 using UnityEngine;
 
-namespace Unity.XR.PXR
+namespace Unity.XR.PICO.TOBSupport
 {
     public class WifiDisplayModelCallback : AndroidJavaProxy
     {

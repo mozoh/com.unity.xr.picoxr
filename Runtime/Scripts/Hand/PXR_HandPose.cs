@@ -72,7 +72,7 @@ namespace Unity.XR.PXR
                 else
                 {
                     poseStateActive = false;
-                    if (handPoseEnd != null)
+                    if (handPoseStart != null)
                     {
                         handPoseEnd.Invoke();
                     }

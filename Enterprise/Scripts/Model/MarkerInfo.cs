@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Unity.XR.PXR
+namespace Unity.XR.PICO.TOBSupport
 {
     public class MarkerInfo
     {

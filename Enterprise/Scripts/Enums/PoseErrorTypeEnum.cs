@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Unity.XR.PXR
+namespace Unity.XR.PICO.TOBSupport
 {
     public enum PoseErrorType
     {
