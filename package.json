@@ -12,7 +12,8 @@
     "xreditorsubsystem"
   ],
   "dependencies": {
-    "com.unity.xr.management": "4.0.0"
+    "com.unity.xr.management": "4.0.0",
+	"com.unity.xr.core-utils": "2.3.0"
   },
   "unityRelease": "21f1"
 }

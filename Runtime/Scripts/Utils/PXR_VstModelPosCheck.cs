@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.XR.PXR;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
 public class PXR_VstModelPosCheck : MonoBehaviour
 {
     public bool IsController = false;
     private Transform mMainCamTrans;
-    private XRBaseController mXRBaseController;
     private PXR_Hand mPXR_Hand;
 
     private float mVirtualWorldOffset = 0.03f;
@@ -22,8 +20,7 @@ public class PXR_VstModelPosCheck : MonoBehaviour
     {
         if (IsController)
         {
-            if (mXRBaseController == null)
-                mXRBaseController = GetComponent<XRBaseController>();
+
         }
         else
         {
@@ -60,7 +57,6 @@ public class PXR_VstModelPosCheck : MonoBehaviour
         if (IsController)
         {
             UpdatePos();
-            transform.localPosition = mXRBaseController.currentControllerState.position + mOffsetPos;
         }
     }
 
